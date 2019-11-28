@@ -1,5 +1,3 @@
-
-
 function Graph(value){
     this.value = value
     this.edges = []
@@ -17,30 +15,31 @@ var kevin
 var movies= new Map()
 var casts = new Map()
 var cast, movie
-var c = []
-var s = []
 var moviesList
+var resetArray = []
+var para = []
 
-
+// loading data
 function preload(){
     data = loadJSON("./js/kevinbacon.json")
 }
 
-
+// a function which prints out the related movies and actors to reach kevin bacon
 function run(){
-    // var found = bfs(casts.get(sel.value()))
-    // var stack = []
-    // while(found.parent != null){
-    //     stack.push(found)
-    //     found = found.parent
-    // }
-    // stack.push(found)
-
-    // while(stack.length !=0){
-    //     createP(stack.pop().value)
-    // }
-
-    createP(sel.value())
+    var stack = []
+    var val = bfs(casts.get(sel.value()));
+    
+    while(val.parent !=null){
+        stack.push(val)
+        val = val.parent
+    }
+    stack.push(val)
+    while(stack.length != 0){
+        createP(stack.pop().value)
+    }
+    reset(resetArray)
+    resetArray = []
+    createP("----------------")
     
 }
 
@@ -48,16 +47,15 @@ function setup() {
 	//canvas
     noCanvas();
 
+    // for selecting actors
     sel = createSelect();
     sel.position(250, 10);
-    
-    
+
+    // copy data
     moviesList = data.movies
 
-   
-
+    // for every actors make a graph and connect to movies
     for( var i = 0; i < moviesList.length;i++){
-
         movie = moviesList[i].title
         for( var j = 0; j < moviesList[i].cast.length;j++){
             cast = moviesList[i].cast[j]
@@ -67,6 +65,7 @@ function setup() {
         movies.set(movie, new Graph(movie) )
     }
 
+    // for every movies make graphs and connect to actors
     for( var i = 0; i < moviesList.length;i++){
         movie = moviesList[i].title
         for( var j = 0; j < moviesList[i].cast.length;j++){
@@ -75,16 +74,15 @@ function setup() {
         }
     }
 
-    
-    sel.changed(run())
-
+    // if seleciton is selected, run this funciton
+    sel.changed(run)
     
 }
 
 
-
-
+// actoural breath first search alogorithm
 function bfs(start_v){
+    resetArray.push(start_v)
     var q = []
     start_v.discovered = true
     var v;
@@ -103,11 +101,20 @@ function bfs(start_v){
                     element.discovered = true
                     element.parent = v
                     q.push(element)
+                    resetArray.push(element)
                 }
             });
     }
-    
-
 }
+
+// reset the discovered and parent
+function reset(arr){
+    arr.forEach(element => {
+        element.discovered = false
+        element.parent = null
+        }
+    )
+}
+
 
 
