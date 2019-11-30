@@ -5,6 +5,7 @@ var w,h
 var cell1
 var current
 var a = 0
+
 function Graph(value){
     this.value = value
     this.edges = []
@@ -15,39 +16,125 @@ function Graph(value){
     }
 }
 
-
 function Cell(i,j){
 	this.x = i
     this.y = j
     this.visited = false
     this.neighbours = []
-    Cell.prototype.addNode = function (n){
-        this.neighbours.push(n)
+    this.walls = [true,true,true,true]
+    Cell.prototype.addNode = function (){
+        // four corners
+        if(this.x == 0 && this.y == 0){
+            this.neighbours.push(grid[0][1])
+            this.neighbours.push(grid[1][0])
+        }
+
+        else if(this.x == 0 && this.y == (rows-1)){
+            this.neighbours.push(grid[0][cols-2])
+            this.neighbours.push(grid[1][cols-1])
+        }
+
+        else if(this.x == cols-1 && this.y == (rows-1)){
+            this.neighbours.push(grid[rows-1][cols-2])
+            this.neighbours.push(grid[rows-2][cols-1])
+        }
+
+        else if(this.x == cols-1 && this.y == 0){
+            this.neighbours.push(grid[rows-2][0])
+            this.neighbours.push(grid[rows-1][1])
+        }
+
+        // left side logic
+        else if(this.x == 0 && this.y > 0){
+            // right side
+            this.neighbours.push(grid[this.x+1][this.y])
+            // up 
+            this.neighbours.push(grid[this.x][this.y-1])
+            // bottom
+            this.neighbours.push(grid[this.x][this.y+1])
+        }
+
+        // bottom
+        else if(this.x > 0 && this.y == cols-1){
+            // right side
+            this.neighbours.push(grid[this.x+1][this.y])
+            // up 
+            this.neighbours.push(grid[this.x][this.y-1])
+            // left
+            this.neighbours.push(grid[this.x-1][this.y])
+        }
+
+        // right
+        else if(this.x == cols-1 && this.y >0){
+            // up 
+            this.neighbours.push(grid[this.x][this.y-1])
+            // left
+            this.neighbours.push(grid[this.x-1][this.y])
+            // bottom
+            this.neighbours.push(grid[this.x][this.y+1])
+        }
+
+        // top
+        else if(this.x > 0 && this.y == 0){
+            // left
+            this.neighbours.push(grid[this.x-1][this.y])
+            // bottom
+            this.neighbours.push(grid[this.x][this.y+1])
+            // right side
+            this.neighbours.push(grid[this.x+1][this.y])
+        }
+        else{
+            // right side
+            this.neighbours.push(grid[this.x+1][this.y])
+            // up 
+            this.neighbours.push(grid[this.x][this.y-1])
+            // left
+            this.neighbours.push(grid[this.x-1][this.y])
+            // bottom
+            this.neighbours.push(grid[this.x][this.y+1])
+        }
     }
-    this.color = function (){
-        fill(190,130,200,105)
-        noStroke()
-        rect(this.x *w, this.y*h, w ,w)
+
+    this.removeWall = function (){
+        this.neighbours.forEach(element => {
+            if(element.visited){
+                
+            }
+        })
     }
+
+    
 
 	this.show = function() {     
        var x = this.x*w
        var y = this.y*w
+       
         stroke(255)
-        // top
+        if(this.walls[0] ){
+            // top
             line(x,y,x+w,y)
-        // bottom
-            line(x,y+w,x+w,y+w)
-        // left
-            line(x,y,x,y+w)
-        // right
-            line(x+w,y,x+w,y+w)
+        }
 
-        if (this.visited == true){
-            fill(255,0,255,100)
-            rect(x,y,w,w)
+        if(this.walls[1] ){
+            // right
+            line(x+w,y,x+w,y+w)
+        }
+
+        if(this.walls[2] ){
+            // bottom
+            line(x,y+w,x+w,y+w)
+        }
+
+        if(this.walls[3] ){
+            // left
+            line(x,y,x,y+w)
         }
         
+        if (this.visited == true){
+            fill(255,0,255,100)
+            noStroke()
+            rect(x,y,w,w)
+        }
     }
 
 }
@@ -72,12 +159,20 @@ function setup() {
 			grid[i][j] = new Cell(i,j)
 		}
     }
-    
-    
-  current = grid[0][0]
+    for (var i = 0.; i < cols; i++) {
+		for (var j = 0.; j < rows; j++) {
+			grid[i][j].addNode()
+		}
+    }
 
 
+     
+    
+    
   
+
+
+  current = grid[9][0]
 
 }
 
@@ -95,10 +190,12 @@ function draw(){
 
     
     current.visited = true
-      if(a !=9){
+      
+    current = grid[9][a]
+    if(a !=9){
         a++
     }   
-    current = grid[0][a]
+    
 
     
 
