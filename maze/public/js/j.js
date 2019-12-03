@@ -5,7 +5,7 @@ var w,h
 var cell1
 var current
 var a = 0
-
+var stack = []
 function shuffles(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -336,12 +336,13 @@ function setup() {
   
 
 
-  current = grid[4][5]
+  current = grid[0][0]
+  stack.push(current)
 
 }
 
 function draw(){
-    frameRate(3)
+    frameRate(13)
      // showing boxes 
       // showing boxes 
       background(51)
@@ -350,33 +351,23 @@ function draw(){
                 grid[i][j].show()
 		}
     }
+
+    // Step 1
     current.visited = true
-    next = current.neighbours[0]
-    current.removeWall(next)
-    current = current.neighbours[0]
-    
-    
-   
-    
-
-    
-
-
-}
-
-function backtracking(cell){
-    var stack = []
-    var current;
-    cell.visited = true
-    stack.push(current)
-    while (stack != 0){
+    if (current.neighbours.length > 0){
         current = stack.pop()
-        if (current.neighbours.length > 0){
-            current.neighbours.forEach(element => {
-                if(element.visited == false){
-                    stack.push(current)
+        current.neighbours.forEach( element => {
+            if(element.visited ==false){
+                    current.removeWall(element)
+                    element.visited = true
+                    stack.push(element)
                 }
-            });
-        }
+            }
+            )
     }
+
+
+ 
+
 }
+
