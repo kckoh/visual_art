@@ -37,16 +37,17 @@ class Dna {
     }      
   }
 
-  match(){
+  mutation(){
       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ';
     var charactersLength = characters.length;
       for ( var i = 0; i < this.leng; i++ ) {
 
         if(this.word[i] == this.target[i]){
         }
-        else{
+        else if(Math.random() <=0.1){
             this.word[i] = characters.charAt(Math.floor(Math.random() * charactersLength))
         }
+        
         
     }    
   }
