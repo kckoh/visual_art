@@ -3,21 +3,22 @@ class Dna {
 
   constructor(leng) {
     this.leng = leng 
-    this.word = []
+    this.word = '                                                                            ' 
     
     this.target = "To be or not to be"
     this.score = 0
     this.correct = 0
     this.generation = 0
+    this.characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ';
+    this.charactersLength = this.characters.length;
   }
 
   randomWord(){
-      this.word = ''
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ';
-    var charactersLength = characters.length;
+    this.word = ''
+
     for ( var i = 0; i < this.leng; i++ ) {
         
-        this.word += characters.charAt(Math.floor(Math.random() * charactersLength))
+        this.word += this.characters.charAt(Math.floor(Math.random() * this.charactersLength))
     }      
   }
 
@@ -38,14 +39,14 @@ class Dna {
   }
 
   mutation(){
-      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ';
-    var charactersLength = characters.length;
       for ( var i = 0; i < this.leng; i++ ) {
 
         if(this.word[i] == this.target[i]){
         }
         else if(Math.random() <=0.1){
-            this.word[i] = characters.charAt(Math.floor(Math.random() * charactersLength))
+            
+        this.word = this.word.substr(0, i) + this.characters.charAt(Math.floor(Math.random() * this.charactersLength)) + this.word.substr(i + 1);
+        //this.word[i] = this.characters.charAt(Math.floor(Math.random() * this.charactersLength))
         }
         
         

@@ -4,3 +4,4 @@ change each character sponteneous
 
 https://natureofcode.com/book/chapter-9-the-evolution-of-code/
 
+am i genius?

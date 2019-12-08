@@ -14,9 +14,7 @@ function setup() {
     populationObject = new Population(populationLength)
 
 
-    // for(var i =0;i < populationLength;i++){
-    //     population[i] = new Dna(18)
-    // }
+   
     
     populationObject.initial()
 }
