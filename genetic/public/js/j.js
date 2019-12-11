@@ -23,6 +23,8 @@ function draw(){
     background(255)
     frameRate(20)
    populationObject.selection()
+   populationObject.crossover()
+
     
     
   

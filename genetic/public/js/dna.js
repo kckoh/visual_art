@@ -3,7 +3,7 @@ class Dna {
 
   constructor(leng) {
     this.leng = leng 
-    this.word = '                                                                            ' 
+    this.word = '' 
     
     this.target = "To be or not to be"
     this.score = 0
