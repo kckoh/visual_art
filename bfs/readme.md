@@ -5,5 +5,6 @@
 
 ## Instruction
 ### enter "node index" to start
+### The object of the game is to start with given actor or actress who has been in a movie and connect them to Kevin Bacon in the smallest number of links possible
 
 

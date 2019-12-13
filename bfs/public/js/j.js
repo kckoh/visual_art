@@ -46,10 +46,10 @@ function run(){
 function setup() {
 	//canvas
     noCanvas();
-
+    createP("The object of the game is to start with any actor or actress who has been in a movie and connect them to Kevin Bacon in the smallest number of links possible")
     // for selecting actors
     sel = createSelect();
-    sel.position(250, 10);
+    sel.position(250, 60);
 
     // copy data
     moviesList = data.movies
