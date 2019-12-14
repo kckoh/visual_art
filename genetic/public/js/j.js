@@ -11,6 +11,7 @@ function setup() {
     createCanvas(710, 400);
 
     createP(target)
+    createP("Only the best can mate!")
     populationObject = new Population(populationLength)
 
 

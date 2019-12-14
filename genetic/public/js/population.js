@@ -43,7 +43,7 @@ class Population {
 
   crossover(){
     for(var i =0;i < populationLength;i++){
-       this.pickParents()
+       
         this.pop[i].word = this.maxDna.word.slice(0,9) + this.maxDna.word.slice(9,19)
 
        this.pop[i].mutation()
@@ -52,23 +52,8 @@ class Population {
   }
 
  
-  pickParents(){
-     //Pick two parents with probability according to relative fitness.
-        
-       
-        this.dad = this.pool[getRandomIntInclusive(0,this.pool.length-1)]
-        // this.percent = (this.dad[1] - this.minDna) / (this.maxDna - this.minDna);
-        
-        // if(this.dad[1] < this.percent){
-        //     console.log(this.dad)
-        //     break
-        // }
-        
-    
 
 
-
-  }
 
 }
 
@@ -77,8 +62,4 @@ class Population {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min; 
-}
-
-  function convertRange( value, r1, r2 ) { 
-    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
 }
