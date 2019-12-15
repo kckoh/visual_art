@@ -7,3 +7,5 @@ If all the vertices in the domain are visited, then terminate. Else, go to step 
 problems:
 after finding the shortest path, find a way to exclude the vistied path
 how can i keep drawing the circles and lines
+
+there is a problem with shortest path and the number only three??

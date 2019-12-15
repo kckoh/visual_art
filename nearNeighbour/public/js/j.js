@@ -1,13 +1,12 @@
-function Graph(value){
-    this.value = value
+function Graph(){
     this.edges = []
-    this.parent = null
     this.discovered = false
     this.width = width*Math.random()
     this.height = width*Math.random()
+    this.shortest = null
     Graph.prototype.addNode = function (n){
         this.edges.push(n)
-        line(this.width,this.height, n.width,n.height)
+        
     }
 
     Graph.prototype.showLine = function(node){
@@ -26,42 +25,54 @@ var gr1
 var gr2
 var gr3
 var ar = []
-
+var check
 
 function setup() {
 	//canvas
     createCanvas(300,500)
 
-    gr1 = new Graph()
-    gr2 = new Graph()
-    gr3 = new Graph()
-    gr1.addNode(gr2)
-    gr2.addNode(gr3)
+ 
     for(var i = 0; i < 5;i++){
         ar[i] = new Graph()
 
     }
     //add other nodes start from here
-    // for(var i = 0; i < 5;i++){
-    //     ar[i].addNode()
-        
-    // }
+    for(var i = 0; i < 5;i++){
+        for(var j = 0; j < 5;j++){
+            if(i != j){
+                ar[i].addNode(ar[j])
+            }
+            
+        }
+    }
+
+    for(var i = 0; i < 5;i++){
+        console.log(ar[i].edges)
+
+    }
+
+    NearestNeighbour(ar[0])
+    for(var i = 0; i < 4;i++){
+        //ar[i].showLine(ar[i].shortest)
+        console.log(ar[i].shortest)
+        ar[i].circle()
+    }
+    ar[4].circle()
     
-    console.log(gr1.width,gr1.height,gr2.width,gr2.height)
-    createP(euclideanDist(gr1.width,gr1.height,gr2.width,gr2.height))
+    
 
     
     
 }
 
 function draw(){
-    background(255)
-    // we gotta change this to connect with edges maybe? because we need to change lines constantly
-    for(var i = 0; i < 4;i++){
-        ar[i].showLine(ar[i+1])
-        ar[i].circle()
-    }
-    ar[4].circle()
+    // background(255)
+    // // we gotta change this to connect with edges maybe? because we need to change lines constantly
+    // for(var i = 0; i < 4;i++){
+    //     ar[i].showLine(ar[i+1])
+    //     ar[i].circle()
+    // }
+    // ar[4].circle()
     
 }
 
@@ -76,22 +87,29 @@ function NearestNeighbour(start_v){
     var shortGraph
     var temp
     var current = start_v
-    while(current.discovered != true){
-        current.discovered = true
+    current.discovered = true
+    var visited = 0
+    var edgesLength = current.edges.length
+    
+    while(edgesLength > visited){
         array1 = current.edges;
         // find the shortest distance
             array1.forEach(element => {
                 temp = euclideanDist(current.width,current.height, element.width,element.height)
-                if(temp < short ){
+                if(temp < short && element.discovered == false ){
                 short = temp
                 shortGraph = element
+                current.shortest = element
                 }
-            });
-            
-        shortGraph.parent = current
-        current = shortGraph
-        short = 100
+            }); 
+            // ------------here
+        console.log(visited)
+        current.shortest.discovered = true
+        current = current.shortest
+        short = 1000
+        visited++
     }
+    return current
 }
 
 function euclideanDist(num1,num2,num3,num4){
