@@ -5,7 +5,7 @@ Set v as the current vertex u. Mark v as visited.
 If all the vertices in the domain are visited, then terminate. Else, go to step 3.
 
 problems:
-after finding the shortest path, find a way to exclude the vistied path
-how can i keep drawing the circles and lines
-
-there is a problem with shortest path and the number only three??
+drawing part:
+ 
+ draw a circle and keep rotate 
+ implement with the algorithm

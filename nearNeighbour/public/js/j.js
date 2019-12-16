@@ -51,13 +51,16 @@ function setup() {
 
     }
 
-    NearestNeighbour(ar[0])
-    for(var i = 0; i < 4;i++){
+    NearestNeighbour(ar[1])
+    for(var i = 0; i < 5;i++){
         //ar[i].showLine(ar[i].shortest)
         console.log(ar[i].shortest)
         ar[i].circle()
+        if(ar[i].shortest != null){
+            ar[i].showLine(ar[i].shortest)
+        }
     }
-    ar[4].circle()
+    
     
     
 
@@ -66,13 +69,13 @@ function setup() {
 }
 
 function draw(){
-    // background(255)
-    // // we gotta change this to connect with edges maybe? because we need to change lines constantly
-    // for(var i = 0; i < 4;i++){
-    //     ar[i].showLine(ar[i+1])
-    //     ar[i].circle()
-    // }
-    // ar[4].circle()
+    background(255)
+    // we gotta change this to connect with edges maybe? because we need to change lines constantly
+    for(var i = 0; i < 4;i++){
+        ar[i].showLine(ar[i+1])
+        ar[i].circle()
+    }
+    ar[4].circle()
     
 }
 
@@ -83,30 +86,37 @@ function NearestNeighbour(start_v){
     var q = []
     var v
     var array1
-    var short = 100
+    var short = 1000
+    var shortestGraph
     var shortGraph
-    var temp
+    var temp = 0
     var current = start_v
     current.discovered = true
     var visited = 0
     var edgesLength = current.edges.length
     
-    while(edgesLength > visited){
+    while(edgesLength+1 > visited){
         array1 = current.edges;
         // find the shortest distance
             array1.forEach(element => {
-                temp = euclideanDist(current.width,current.height, element.width,element.height)
-                if(temp < short && element.discovered == false ){
-                short = temp
-                shortGraph = element
-                current.shortest = element
+                if(element.discovered == true){
+
+                }
+                else{
+                    temp = euclideanDist(current.width,current.height, element.width,element.height)
+                    console.log(temp)
+                    if(temp < short  ){
+                        short = temp
+                        shortestGraph = element
+                    }
                 }
             }); 
             // ------------here
-        console.log(visited)
-        current.shortest.discovered = true
-        current = current.shortest
-        short = 1000
+                current.shortest = shortestGraph
+                current.shortest.discovered = true
+                current = shortestGraph
+            
+        short = 10000
         visited++
     }
     return current
