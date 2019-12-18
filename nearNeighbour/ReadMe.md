@@ -1,11 +1,15 @@
-Initialize all vertices as unvisited.
-Select an arbitrary vertex, set it as the current vertex u. Mark u as visited.
-Find out the shortest edge connecting the current vertex u and an unvisited vertex v.
-Set v as the current vertex u. Mark v as visited.
-If all the vertices in the domain are visited, then terminate. Else, go to step 3.
+# Implementation of nearest neighbour algorithm
 
-problems:
-drawing part:
- 
- draw a circle and keep rotate 
- implement with the algorithm
+## Steps:
+
+
+1.Initialize all vertices as unvisited.
+2.Select an arbitrary vertex, set it as the current vertex u. Mark u as visited.
+3.Find out the shortest edge connecting the current vertex u and an unvisited vertex v.
+4.Set v as the current vertex u. Mark v as visited.
+5.If all the vertices in the domain are visited, then terminate. Else, go to step 3.
+
+## To start
+### Enter "node index"
+### If you want to change the speed and the number of nodes,
+### check variables and change it.
