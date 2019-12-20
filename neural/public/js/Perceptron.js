@@ -6,6 +6,7 @@ class Perceptron {
     this.weights = []
     this.sum
     this.output  
+    this.answer = []
   }
 
 
@@ -14,11 +15,29 @@ class Perceptron {
 
   }
 
-  sumWeights(){
+  answer(){
+    for(var i = 0; i < this.inputs.length;i++){
+          if(this.inputs[i][1] >= this.inputs[i][0]){
+          this.answer[i] = -1
+            }
+            else{
+                this.answer[i] = 1
+            }
+      }
+  }
+
+  initialWeights(){
         this.sum = 0
       for(var i = 0; i < this.inputs.length;i++){
         this.weights[i] = getRandomIntInclusive(-1,1)
-        this.sum += this.inputs[i] * this.weights[i]
+        this.sum += this.inputs[i][0] * this.weights[i]
+      }
+  }
+
+  sumWeights(){
+      this.sum = 0
+      for(var i = 0; i < this.inputs.length;i++){
+        this.sum += this.inputs[i][0] * this.weights[i]
       }
   }
 
@@ -28,6 +47,42 @@ class Perceptron {
       }
       else{
           this.output = -1
+      }
+  }
+
+
+  error(arg) {
+      var answer
+      if(arg[1] >= arg[0]){
+          answer = -1
+      }
+      else{
+          answer = 1
+      }
+      return answer - this.output
+  }
+
+  updateWeights(){
+    var answer
+    var error
+
+
+      for(var i = 0; i < this.weights.length;i++){
+          if(this.inputs[i][1] >= this.inputs[i][0]){
+          answer = -1
+            }
+            else{
+                answer = 1
+            }
+
+      error = answer - this.output
+      console.log(error)
+          if(error == 0 ){
+               
+          }
+          else{
+            this.weights[i] = this.weights[i] + error*this.inputs[i][0] *0.01
+          }
       }
   }
 
