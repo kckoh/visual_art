@@ -7,6 +7,8 @@ class Perceptron {
     this.sum
     this.output  
     this.answer = []
+    this.error
+    this.guess
   }
 
 
@@ -18,7 +20,7 @@ class Perceptron {
   answer(){
     for(var i = 0; i < this.inputs.length;i++){
           if(this.inputs[i][1] >= this.inputs[i][0]){
-          this.answer[i] = -1
+                this.answer[i] = -1
             }
             else{
                 this.answer[i] = 1
@@ -30,6 +32,7 @@ class Perceptron {
         this.sum = 0
       for(var i = 0; i < this.inputs.length;i++){
         this.weights[i] = getRandomIntInclusive(-1,1)
+        console.log(this.weights[i])
         this.sum += this.inputs[i][0] * this.weights[i]
       }
   }
@@ -51,38 +54,27 @@ class Perceptron {
   }
 
 
-  error(arg) {
-      var answer
-      if(arg[1] >= arg[0]){
-          answer = -1
-      }
-      else{
-          answer = 1
-      }
-      return answer - this.output
-  }
-
   updateWeights(){
-    var answer
-    var error
+
 
 
       for(var i = 0; i < this.weights.length;i++){
           if(this.inputs[i][1] >= this.inputs[i][0]){
-          answer = -1
+                this.guess = -1
             }
             else{
-                answer = 1
+                this.guess = 1
             }
 
-      error = answer - this.output
-      console.log(error)
-          if(error == 0 ){
-               
-          }
-          else{
-            this.weights[i] = this.weights[i] + error*this.inputs[i][0] *0.01
-          }
+      this.answer = this.guess - this.output
+      //console.log(this.answer)
+      if(this.error ==0){
+          //console.log(i)
+      }
+      else{
+          this.weights[i] +=  this.error*this.inputs[i][0]*0.01
+      }
+      
       }
   }
 
@@ -91,5 +83,7 @@ class Perceptron {
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //최댓값도 포함, 최솟값도 포함
+
+
+  return Math.random() * (+max - +min) + +min 
 }

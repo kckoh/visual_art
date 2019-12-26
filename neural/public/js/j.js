@@ -58,7 +58,6 @@ function setup() {
     perceptrion = new Perceptron()
     perceptrion.addInputs(answer)
     perceptrion.initialWeights()
-    perceptrion.answer()
     perceptrion.activation()
     perceptrion.updateWeights()
 
@@ -78,9 +77,9 @@ function draw(){
     // }
 
     //line(0,0,500,500)
-    // perceptrion.sumWeights()
-    // perceptrion.activation()
-    // perceptrion.updateWeights()
+    perceptrion.sumWeights()
+    perceptrion.activation()
+    perceptrion.updateWeights()
     
    
 }
