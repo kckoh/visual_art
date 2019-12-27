@@ -4,3 +4,5 @@ problems:
 3. add children
 4. add if the head bites the children
 5. random bait after eaten
+
+make an another one and follow him around when he changes
